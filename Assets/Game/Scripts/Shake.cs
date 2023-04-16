@@ -1,20 +1,37 @@
 using UnityEngine;
 
-public class Shake : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Shake : Enemy
 {
-    [SerializeField] private int damage;
-    [SerializeField] private int health;
-    [SerializeField] private int speed;
-    private Rigidbody _rb;
-
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        Rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
         Move();
+    }
+
+    public override void Move()
+    {
+        Rb.AddForce(Vector3.down * Speed * Time.deltaTime);
+    }
+
+    public override void Attack(PlayerField playerField)
+    {
+        playerField.Health -= Damage;
+        Destroy(gameObject);
+        if (playerField.Health <= 0f)
+        {
+            playerField.gameObject.SetActive(false);
+        }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        Health -= damage;
+        if (Health <= 0f) Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -24,31 +41,11 @@ public class Shake : MonoBehaviour
             Attack(collision.gameObject.GetComponent<PlayerField>());
         }
     }
-    public void Attack(PlayerField playerField)
-    {
-        playerField.Health -= damage;
-        Destroy(gameObject);
-        if (playerField.Health <= 0f) 
-        {
-            playerField.gameObject.SetActive(false);
-        } 
-    }
-
-    public void TakeDamage(int damage)
-    {
-        health -= damage;
-        if (health <= 0f) Destroy(gameObject);
-    }
-
-
-    public void Move()
-    {
-        _rb.AddForce(Vector3.down * speed * Time.deltaTime);
-    }
 
     private void OnMouseDown()
     {
-        TakeDamage(damage);
+        TakeDamage(Damage);
     }
+
 }
 
