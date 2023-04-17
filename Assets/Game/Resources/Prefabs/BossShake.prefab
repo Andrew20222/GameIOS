@@ -49,6 +49,11 @@ MonoBehaviour:
   Damage: 100
   Health: 20
   Speed: 7
+  changeDrop: 25
+  prefabItem:
+  - {fileID: 5114349551214542015, guid: 75bfd4731fa07ae4cbe7e264aa597564, type: 3}
+  - {fileID: 798928095660405045, guid: 56681d57f04e5a749a10eb5f3fec0137, type: 3}
+  - {fileID: 391143740266524712, guid: a0130f801c9e351409eb1847dafcc49e, type: 3}
 --- !u!54 &1084158752
 Rigidbody:
   m_ObjectHideFlags: 0

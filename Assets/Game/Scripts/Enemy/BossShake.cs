@@ -3,6 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class BossShake : Enemy
 {
+    [SerializeField] private float changeDrop = 25;
+    [SerializeField] private GameObject[] prefabItem;
+    private float _rdn;
+
+    public void SpawnItem()
+    {
+        _rdn = Random.Range(0, 100);
+        if (_rdn <= changeDrop)
+        {
+            Instantiate(prefabItem[Random.Range(0,2)], transform.position, Quaternion.identity);
+        }
+    }
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
@@ -38,5 +50,11 @@ public class BossShake : Enemy
         {
             Attack(collision.gameObject.GetComponent<PlayerField>());
         }
+    }
+
+    private void OnMouseDown()
+    {
+        TakeDamage(Damage);
+        SpawnItem();
     }
 }
