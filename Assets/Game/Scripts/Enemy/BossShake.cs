@@ -1,20 +1,14 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody))]
 public class BossShake : Enemy
 {
     [SerializeField] private float changeDrop = 25;
     [SerializeField] private GameObject[] prefabItem;
+    [SerializeField] private GameObject[] factoryObject;
     private float _rdn;
 
-    public void SpawnItem()
-    {
-        _rdn = Random.Range(0, 100);
-        if (_rdn <= changeDrop)
-        {
-            Instantiate(prefabItem[Random.Range(0,2)], transform.position, Quaternion.identity);
-        }
-    }
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
@@ -28,8 +22,8 @@ public class BossShake : Enemy
         playerField.Health -= Damage;
         Destroy(gameObject);
         if (playerField.Health <= 0f)
-        {
-            playerField.gameObject.SetActive(false);
+        { 
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -41,7 +35,31 @@ public class BossShake : Enemy
     public override void TakeDamage(int damage)
     {
         Health -= damage;
-        if (Health <= 0f) Destroy(gameObject);
+        if (Health <= 0f)
+        {
+            Destroy(gameObject);
+            var Item = FindObjectOfType<Item>();
+            if (Item)
+            {
+                SceneManager.LoadScene(1);
+            }
+            
+        } 
+    }
+
+    public void SpawnItem()
+    {
+        _rdn = Random.Range(0, 100);
+        if (_rdn <= changeDrop)
+        {
+            Instantiate(prefabItem[Random.Range(0, 2)], transform.position, Quaternion.identity);
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        TakeDamage(Damage);
+        SpawnItem();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -50,11 +68,5 @@ public class BossShake : Enemy
         {
             Attack(collision.gameObject.GetComponent<PlayerField>());
         }
-    }
-
-    private void OnMouseDown()
-    {
-        TakeDamage(Damage);
-        SpawnItem();
     }
 }

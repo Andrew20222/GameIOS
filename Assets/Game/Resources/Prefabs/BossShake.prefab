@@ -32,7 +32,7 @@ Transform:
   m_Children:
   - {fileID: 7526270224514940327}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 180}
 --- !u!114 &1084158751
 MonoBehaviour:
@@ -49,7 +49,7 @@ MonoBehaviour:
   Damage: 100
   Health: 20
   Speed: 7
-  changeDrop: 25
+  changeDrop: 100
   prefabItem:
   - {fileID: 5114349551214542015, guid: 75bfd4731fa07ae4cbe7e264aa597564, type: 3}
   - {fileID: 798928095660405045, guid: 56681d57f04e5a749a10eb5f3fec0137, type: 3}
