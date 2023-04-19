@@ -7,6 +7,6 @@ public class CardRed : Item
     {
         PlayerPrefs.SetString("CardRed", Id);
         Destroy(gameObject);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

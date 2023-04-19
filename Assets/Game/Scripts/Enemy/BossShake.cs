@@ -41,7 +41,7 @@ public class BossShake : Enemy
             var Item = FindObjectOfType<Item>();
             if (Item)
             {
-                SceneManager.LoadScene(1);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
             
         } 
