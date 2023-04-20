@@ -12,6 +12,7 @@ public class BossShake : Enemy
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
+        HpBar.value = Health;
     }
     private void Update()
     { 
@@ -35,9 +36,11 @@ public class BossShake : Enemy
     public override void TakeDamage(int damage)
     {
         Health -= damage;
+        HpBar.value = Health;
         if (Health <= 0f)
         {
             Destroy(gameObject);
+            SpawnItem();
             var Item = FindObjectOfType<Item>();
             if (Item)
             {
@@ -59,7 +62,6 @@ public class BossShake : Enemy
     private void OnMouseDown()
     {
         TakeDamage(Damage);
-        SpawnItem();
     }
 
     private void OnCollisionEnter(Collision collision)

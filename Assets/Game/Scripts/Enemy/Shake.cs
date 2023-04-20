@@ -6,6 +6,8 @@ public class Shake : Enemy
     private void Start()
     {
         Rb = GetComponent<Rigidbody>();
+        HpBar.value = Health;
+        CountMoney.text = Money.ToString() ;
     }
 
     private void Update()
@@ -31,6 +33,7 @@ public class Shake : Enemy
     public override void TakeDamage(int damage)
     {
         Health -= damage;
+        HpBar.value = Health;
         if (Health <= 0f) Destroy(gameObject);
     }
 
