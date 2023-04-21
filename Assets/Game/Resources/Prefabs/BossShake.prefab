@@ -256,6 +256,9 @@ MonoBehaviour:
   Health: 1000
   Speed: 7
   HpBar: {fileID: 5645190858773042530}
+  Money: 20
+  CountMoney: {fileID: 0}
+  Level: 0
   changeDrop: 100
   prefabItem:
   - {fileID: 5114349551214542015, guid: 75bfd4731fa07ae4cbe7e264aa597564, type: 3}

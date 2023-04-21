@@ -13,6 +13,8 @@ public class BossShake : Enemy
     {
         Rb = GetComponent<Rigidbody>();
         HpBar.value = Health;
+        Level = FindObjectOfType<Level>();
+        Money = FindObjectOfType<Money>();
     }
     private void Update()
     { 
@@ -39,11 +41,14 @@ public class BossShake : Enemy
         HpBar.value = Health;
         if (Health <= 0f)
         {
+            Money.Moneys += Money.Moneys * Level.CurrentLevel;
+            Money.CountMoney.text = Money.Moneys.ToString();
             Destroy(gameObject);
             SpawnItem();
             var Item = FindObjectOfType<Item>();
             if (Item)
             {
+                Level.CurrentLevel++;
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             }
             

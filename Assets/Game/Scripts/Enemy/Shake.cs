@@ -7,7 +7,8 @@ public class Shake : Enemy
     {
         Rb = GetComponent<Rigidbody>();
         HpBar.value = Health;
-        CountMoney.text = Money.ToString() ;
+        Money = FindObjectOfType<Money>();
+        Level = FindObjectOfType<Level>();
     }
 
     private void Update()
@@ -34,7 +35,13 @@ public class Shake : Enemy
     {
         Health -= damage;
         HpBar.value = Health;
-        if (Health <= 0f) Destroy(gameObject);
+        if (Health <= 0f) 
+        {
+            Money.Moneys += Money.Moneys * Level.CurrentLevel;
+            Money.CountMoney.text = Money.Moneys.ToString();
+            Destroy(gameObject);
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)

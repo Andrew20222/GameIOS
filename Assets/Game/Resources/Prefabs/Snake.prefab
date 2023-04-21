@@ -644,6 +644,9 @@ MonoBehaviour:
   Health: 10
   Speed: 15
   HpBar: {fileID: 357968113}
+  Money: 10
+  CountMoney: {fileID: 0}
+  Level: 0
 --- !u!54 &2052162540286423427
 Rigidbody:
   m_ObjectHideFlags: 0
