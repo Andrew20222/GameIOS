@@ -25,8 +25,8 @@ public class BossShake : Enemy
         playerField.Health -= Damage;
         Destroy(gameObject);
         if (playerField.Health <= 0f)
-        { 
-            SceneManager.LoadScene(1);
+        {
+            playerField.gameObject.SetActive(false);
         }
     }
 

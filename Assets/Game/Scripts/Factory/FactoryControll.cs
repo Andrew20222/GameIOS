@@ -5,6 +5,7 @@ public class FactoryControll : MonoBehaviour
 {
     [SerializeField] private ShakeFactory shakeFactory;
     [SerializeField] private BossShakeFactory bossShakeFactory;
+    [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private int countShakes = 4;
     [SerializeField] private float interval = 2;
     [SerializeField] private float startLatency = 3;
@@ -20,22 +21,26 @@ public class FactoryControll : MonoBehaviour
     public async void StartSnakesSpawn(int count, float interval, float startLatency) // async є асинхроність метода і використання await
     {
         await Awaiters.Seconds(startLatency); // в цьому місці ми очікуємо час interval
-
-        for (int i = 0; i < count; i++)
+        if (spawnPoints != null)
         {
-            shakeFactory.GetNewInstance();
-            await Awaiters.Seconds(interval);
+            for (int i = 0; i < count; i++)
+            {
+                shakeFactory.GetNewInstance();
+                await Awaiters.Seconds(interval);
+            }
         }
     }
 
     public async void StartBossShakeSpawn(float interval)
     {
         await Awaiters.Seconds(interval);
-        if(countBoss == 1)
+        if (spawnPoints != null)
         {
-            bossShakeFactory.GetNewInstance();
-            countBoss++;
+            if (countBoss == 1)
+            {
+                bossShakeFactory.GetNewInstance();
+                countBoss++;
+            }
         }
-        
     }
 }
